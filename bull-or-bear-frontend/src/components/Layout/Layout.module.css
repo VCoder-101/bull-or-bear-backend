@@ -1,0 +1,145 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 28px;
+  background: rgba(26, 27, 46, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.logoText {
+  font-size: 16px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.3px;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.navItem:hover {
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+}
+
+.navActive {
+  color: var(--accent) !important;
+  background: var(--accent-dim) !important;
+}
+
+.navIcon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.navLabel {
+  font-size: 14px;
+}
+
+/* Right side */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.balance {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.balanceIcon { color: var(--gold); font-size: 14px; }
+
+.balanceVal {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.profileBtn {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.avatar:hover {
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 28px 28px;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}

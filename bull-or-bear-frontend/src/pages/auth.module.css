@@ -1,0 +1,169 @@
+/* ── Страница авторизации ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1040 50%, #0d1830 100%);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Плавающие иконки криптовалют на фоне ── */
+.floatIcon {
+  position: absolute;
+  font-weight: 800;
+  color: rgba(129, 140, 248, 0.08);
+  pointer-events: none;
+  user-select: none;
+  animation: floatAnim var(--dur, 14s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes floatAnim {
+  0%   { transform: translateY(0px)   rotate(0deg)   scale(1); }
+  33%  { transform: translateY(-28px) rotate(6deg)   scale(1.05); }
+  66%  { transform: translateY(14px)  rotate(-4deg)  scale(0.97); }
+  100% { transform: translateY(0px)   rotate(0deg)   scale(1); }
+}
+
+/* ── Карточка формы ── */
+.card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  padding: 40px 38px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(129, 140, 248, 0.2);
+}
+
+/* ── Logo ── */
+.logo {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.logoIcon {
+  font-size: 34px;
+  color: #818cf8;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  color: #1e1b4b;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+/* ── Form ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input {
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #111827;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.input:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
+  background: #fff;
+}
+
+.input::placeholder { color: #9ca3af; }
+
+/* ── Messages ── */
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.hint {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #1d4ed8;
+  font-size: 13px;
+}
+
+/* ── Submit button ── */
+.submit {
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, box-shadow 0.2s;
+  margin-top: 4px;
+  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.4);
+  font-family: inherit;
+}
+
+.submit:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: 0 6px 24px rgba(129, 140, 248, 0.5);
+}
+
+.submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.footer a {
+  color: #818cf8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover { text-decoration: underline; }

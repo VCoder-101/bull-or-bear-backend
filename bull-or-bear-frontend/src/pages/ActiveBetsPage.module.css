@@ -1,0 +1,194 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.summaryTag {
+  padding: 6px 14px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.loading {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 0;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  opacity: 0.4;
+}
+
+.ctaBtn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 24px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.ctaBtn:hover { opacity: 0.85; }
+
+/* Bet list */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.betCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.betCard:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.bullCard { border-left: 3px solid var(--green); }
+.bearCard { border-left: 3px solid var(--red); }
+
+/* Left */
+.betLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 100px;
+}
+
+.betCoin {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.betTicker {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.betName {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.betDir {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Mid */
+.betMid {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+  row-gap: 2px;
+  flex: 1;
+}
+
+.betAmountLabel,
+.betPayoutLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.betAmount {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.betPayout {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+/* Right — timer */
+.betRight {
+  min-width: 140px;
+  text-align: right;
+}
+
+.timerWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.timer {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.timerBar {
+  width: 120px;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.timerFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #a78bfa);
+  border-radius: 2px;
+  transition: width 0.9s linear;
+}
+
+/* Colors */
+.bull { color: var(--green); }
+.bear { color: var(--red); }

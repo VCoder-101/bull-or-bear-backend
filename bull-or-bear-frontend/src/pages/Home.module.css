@@ -1,0 +1,491 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── Hero ── */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 52px 32px 40px;
+  background: linear-gradient(135deg, #0d1117 0%, #1a0f40 50%, #0d1830 100%);
+  border: 1px solid rgba(129,140,248,0.25);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Фоновое свечение */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 200px;
+  background: radial-gradient(ellipse, rgba(129,140,248,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroMain {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes floatDown {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(12px); }
+}
+
+.arrowBull {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--green);
+  text-shadow: 0 0 24px rgba(34,197,94,0.5);
+  animation: floatUp 2.4s ease-in-out infinite;
+  line-height: 1;
+}
+
+.arrowBear {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--red);
+  text-shadow: 0 0 24px rgba(239,68,68,0.5);
+  animation: floatDown 2.4s ease-in-out infinite;
+  line-height: 1;
+}
+
+.heroTitle {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff 0%, #c4b5fd 60%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroDesc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.65);
+  max-width: 480px;
+}
+
+/* 3 мини-карточки под описанием */
+.heroFeatures {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.heroFeatureCard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.heroFeatureCard:hover {
+  background: rgba(129,140,248,0.12);
+  border-color: rgba(129,140,248,0.3);
+}
+
+.heroFeatureIcon  { font-size: 18px; }
+.heroFeatureLabel { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); white-space: nowrap; }
+
+/* ── How it works ── */
+.howSection {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.howTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.howGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.howCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.howCard:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.howIcon {
+  font-size: 30px;
+}
+
+.howCardTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.howCardDesc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ── Section header ── */
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.seeAll {
+  font-size: 12px;
+  color: var(--accent);
+  transition: opacity 0.2s;
+}
+
+.seeAll:hover { opacity: 0.7; }
+
+/* ── Coins grid ── */
+.coinsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* ── Coin card ── */
+.coinCard {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.coinCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--coin-color, var(--accent));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.coinCard:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+}
+
+.coinCard:hover::before { opacity: 1; }
+
+.coinActive {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px var(--accent-dim) !important;
+}
+
+.coinActive::before { opacity: 1 !important; }
+
+.coinTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.coinIcon {
+  font-size: 20px;
+  color: var(--coin-color, var(--accent));
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.coinInfo { flex: 1; min-width: 0; }
+
+.coinTicker {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.coinName {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.coinChange {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.pos { color: var(--green); background: var(--green-dim); }
+.neg { color: var(--red);   background: var(--red-dim); }
+
+.coinPrice {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.coinHover {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 6px;
+  background: linear-gradient(0deg, rgba(26,27,46,0.95) 0%, transparent 100%);
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.coinCard:hover .coinHover { opacity: 1; }
+
+/* ── Stats row ── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.statCard {
+  padding: 20px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s;
+}
+
+.statCard:hover { border-color: var(--border-hover); }
+.accentBorder { border-left: 3px solid var(--accent); }
+.goldBorder   { border-left: 3px solid var(--gold); }
+.greenBorder  { border-left: 3px solid var(--green); }
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.statVal {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.statSub { font-size: 12px; color: var(--text-muted); }
+
+/* ── Two col ── */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ── Section card ── */
+.section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+
+.section:hover { border-color: var(--border-hover); }
+
+/* ── Empty ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.emptyHint { font-size: 11px; color: var(--text-muted); opacity: 0.7; }
+
+/* ── Active bets list ── */
+.betList { display: flex; flex-direction: column; gap: 7px; }
+
+.betItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
+  font-size: 13px;
+}
+
+.bullBet { border-left-color: var(--green); }
+.bearBet { border-left-color: var(--red); }
+
+.betDir    { font-size: 16px; font-weight: 800; }
+.betTicker { flex: 1; font-weight: 700; }
+.betAmt    { font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); }
+
+/* ── Quests ── */
+.questList { display: flex; flex-direction: column; gap: 10px; }
+
+.questItem {
+  padding: 10px 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+}
+
+.questDone { border-color: rgba(34,197,94,0.3) !important; opacity: 0.7; }
+
+.questTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.questTitle  { font-size: 13px; font-weight: 500; }
+.questReward { font-size: 12px; color: var(--gold); font-family: var(--font-mono); }
+
+.progressBar {
+  height: 4px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, #a78bfa 100%);
+  border-radius: 2px;
+  transition: width 0.4s;
+}
+
+.progressLabel { font-size: 11px; color: var(--text-muted); }
+
+/* ── History list ── */
+.histList { display: flex; flex-direction: column; gap: 6px; }
+
+.histRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+
+.histDir    { font-size: 15px; font-weight: 800; }
+.histTicker { font-weight: 700; min-width: 40px; }
+.histAmt    { flex: 1; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+
+.histBadge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.badge_won  { background: var(--green-dim); color: var(--green); }
+.badge_lost { background: var(--red-dim);   color: var(--red); }
+.badge_draw { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+
+.histPnl {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* ── Colors ── */
+.bull  { color: var(--green); }
+.bear  { color: var(--red); }
+.muted { color: var(--text-muted); }
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .coinsGrid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .coinsGrid    { grid-template-columns: repeat(2, 1fr); }
+  .statsRow     { grid-template-columns: 1fr; }
+  .twoCol       { grid-template-columns: 1fr; }
+  .howGrid      { grid-template-columns: repeat(2, 1fr); }
+  .heroFeatures { flex-wrap: wrap; justify-content: center; }
+  .heroTitle    { font-size: 32px; }
+  .arrowBull, .arrowBear { font-size: 36px; }
+}
+
+@media (max-width: 520px) {
+  .howGrid { grid-template-columns: 1fr; }
+}

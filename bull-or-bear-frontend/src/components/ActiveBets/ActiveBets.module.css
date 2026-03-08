@@ -1,0 +1,65 @@
+.container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
+  font-size: 13px;
+}
+
+.bullBet { border-left-color: var(--green); }
+.bearBet { border-left-color: var(--red); }
+
+.dir {
+  font-weight: 700;
+  font-size: 13px;
+  min-width: 58px;
+}
+
+.symbol {
+  flex: 1;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.amount {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.countdown {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 44px;
+  text-align: right;
+}
+
+.bull { color: var(--green); }
+.bear { color: var(--red); }

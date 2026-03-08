@@ -1,0 +1,82 @@
+.container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 10px 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  border-left: 3px solid transparent;
+  font-size: 12px;
+}
+
+.won  { border-left-color: var(--green); }
+.lost { border-left-color: var(--red); }
+.draw { border-left-color: var(--text-muted); }
+
+.dir {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bull { color: var(--green); }
+.bear { color: var(--red); }
+
+.symbol {
+  color: var(--text-secondary);
+  font-weight: 600;
+  min-width: 36px;
+}
+
+.amount {
+  flex: 1;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.statusLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.payout {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  min-width: 42px;
+  text-align: right;
+}
+
+.won  .payout { color: var(--green); }
+.lost .payout { color: var(--red); }
+.draw .payout { color: var(--text-muted); }

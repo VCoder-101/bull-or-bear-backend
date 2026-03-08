@@ -1,0 +1,11 @@
+.wrapper {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #22233a;
+}
+
+.chart {
+  width: 100%;
+}

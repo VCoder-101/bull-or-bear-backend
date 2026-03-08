@@ -1,0 +1,29 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+db.sqlite3
+.env
+
+# Node
+node_modules/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code / Agent files (НЕ ПУШИТЬ)
+CLAUDE.md
+PLAN.md
+.claude/
+.mcp.json
+run_dev.py
+test_all.py
+COMMIT_MSG.md
+
+# OS
+.DS_Store
+Thumbs.db

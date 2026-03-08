@@ -1,0 +1,148 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 720px;
+}
+
+.pageHeader { margin-bottom: 4px; }
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Card */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 26px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.cardDesc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
+
+/* Week row */
+.weekRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.dayCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 4px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s;
+}
+
+.dayDone {
+  background: var(--green-dim);
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+.dayToday {
+  background: var(--accent-dim);
+  border-color: rgba(129, 140, 248, 0.4) !important;
+  box-shadow: 0 0 12px var(--accent-dim);
+}
+
+.dayLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.dayIcon {
+  font-size: 16px;
+  color: var(--green);
+}
+
+.dayToday .dayIcon { color: var(--accent); }
+.dayCell:not(.dayDone):not(.dayToday) .dayIcon { color: var(--text-muted); }
+
+/* Messages */
+.msg {
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.success { background: var(--green-dim);  color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+.info    { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(129,140,248,0.3); }
+.error   { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(239,68,68,0.3); }
+
+/* Claim button */
+.claimBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  transition: opacity 0.2s;
+}
+
+.claimBtn:hover:not(:disabled) { opacity: 0.85; }
+.claimBtn:disabled { cursor: not-allowed; }
+.claimDone { background: var(--bg-elevated) !important; color: var(--green) !important; border: 1px solid rgba(34,197,94,0.3) !important; }
+
+/* Streak grid */
+.streakGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.streakCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.streakDone {
+  background: var(--gold-dim);
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+.streakDay {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.streakAmount {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+}

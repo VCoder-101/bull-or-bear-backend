@@ -1,0 +1,46 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pageHeader { margin-bottom: 4px; }
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Quests block wrapper */
+.questsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.questsHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.blockTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.blockSub {
+  font-size: 13px;
+  color: var(--text-muted);
+}
