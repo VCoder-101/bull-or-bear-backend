@@ -1,6 +1,6 @@
 from django.core.cache import cache
 from django.db.models import Count, Q
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -54,3 +54,29 @@ class LeaderboardView(APIView):
                 'win_rate': win_rate,
             })
         return result
+
+
+class MyRankView(APIView):
+    """GET /api/v1/leaderboard/my-rank/ — реальное место текущего пользователя среди всех."""
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        profile = request.user.profile
+
+        # Место = количество игроков с бо́льшим балансом + 1
+        rank  = UserProfile.objects.filter(coins__gt=profile.coins).count() + 1
+        total = UserProfile.objects.count()
+
+        bets       = Bet.objects.filter(user=request.user).exclude(status=Bet.STATUS_ACTIVE)
+        total_bets = bets.count()
+        won_bets   = bets.filter(status=Bet.STATUS_WON).count()
+        win_rate   = round(won_bets / total_bets * 100, 1) if total_bets > 0 else 0.0
+
+        return Response({
+            'rank':       rank,
+            'total':      total,
+            'username':   request.user.username,
+            'coins':      profile.coins,
+            'total_bets': total_bets,
+            'win_rate':   win_rate,
+        })

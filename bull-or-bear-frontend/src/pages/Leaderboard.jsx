@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import api from '../api/client';
 import { COINS } from '../constants/coins';
 import { useAuth } from '../context/AuthContext';
@@ -32,23 +32,21 @@ function HistoryCol() {
     return () => clearInterval(id);
   }, []);
 
-  const won     = bets.filter(b => b.status === 'won').length;
-  const lost    = bets.filter(b => b.status === 'lost').length;
-  const draws   = bets.filter(b => b.status === 'draw').length;
-  const profit  = bets.reduce((s, b) => {
+  const won    = bets.filter(b => b.status === 'won').length;
+  const lost   = bets.filter(b => b.status === 'lost').length;
+  const draws  = bets.filter(b => b.status === 'draw').length;
+  const profit = bets.reduce((s, b) => {
     if (b.status === 'won')  return s + (b.payout - b.amount);
     if (b.status === 'lost') return s - b.amount;
     return s;
   }, 0);
-  const winRate = bets.length > 0 ? Math.round((won / bets.length) * 100) : 0;
-
+  const winRate  = bets.length > 0 ? Math.round((won / bets.length) * 100) : 0;
   const filtered = filter === 'all' ? bets : bets.filter(b => b.status === filter);
 
   return (
     <div className={styles.historyCol}>
       <h2 className={styles.colTitle}>◷ Моя история</h2>
 
-      {/* Статистика */}
       <div className={styles.histStats}>
         <div className={styles.hStat}>
           <div className={styles.hStatVal}>{bets.length}</div>
@@ -78,7 +76,6 @@ function HistoryCol() {
         </div>
       </div>
 
-      {/* Фильтры */}
       <div className={styles.filters}>
         {HIST_FILTERS.map(f => (
           <button
@@ -91,7 +88,6 @@ function HistoryCol() {
         ))}
       </div>
 
-      {/* Список */}
       {loading ? (
         <div className={styles.loading}>Загрузка...</div>
       ) : filtered.length === 0 ? (
@@ -125,24 +121,46 @@ function HistoryCol() {
 }
 
 /* ════════════════════════════════════════════
-   ПРАВАЯ КОЛОНКА: Лидерборд
+   ПРАВАЯ КОЛОНКА: Лидерборд (топ 10)
 ════════════════════════════════════════════ */
 function LeaderboardCol({ user }) {
-  const [rows, setRows]       = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [rows, setRows]         = useState([]);
+  const [myRank, setMyRank]     = useState(null);
+  const [loading, setLoading]   = useState(true);
+  const lastUpdateRef           = useRef(null);
 
-  useEffect(() => {
-    api.get('/leaderboard/')
-      .then(r => setRows(r.data))
+  const load = () => {
+    Promise.all([
+      api.get('/leaderboard/'),
+      api.get('/leaderboard/my-rank/'),
+    ])
+      .then(([lb, mr]) => {
+        setRows(lb.data.slice(0, 10));   // только топ 10
+        setMyRank(mr.data);
+        lastUpdateRef.current = Date.now();
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    load();
+    // Автообновление каждые 60 секунд
+    const id = setInterval(load, 60000);
+    return () => clearInterval(id);
   }, []);
+
+  // Текущий пользователь входит в топ 10?
+  const userInTop10 = rows.some(r => r.username === user?.username);
 
   if (loading) return <div className={styles.leaderCol}><div className={styles.loading}>Загрузка...</div></div>;
 
   return (
     <div className={styles.leaderCol}>
-      <h2 className={styles.colTitle}>▲ Лидерборд</h2>
+      <div className={styles.colTitleRow}>
+        <h2 className={styles.colTitle}>▲ Лидерборд</h2>
+        <span className={styles.updateHint}>обновление каждые 60с</span>
+      </div>
 
       {/* Подиум топ-3 */}
       {rows.length >= 3 && (
@@ -150,11 +168,9 @@ function LeaderboardCol({ user }) {
           {[rows[1], rows[0], rows[2]].map((row, i) => {
             const pos = [2, 1, 3][i];
             return (
-              <div key={row.rank} className={`${styles.podiumItem} ${styles[`pos${pos}`]}`}>
+              <div key={row.rank} className={`${styles.podiumItem} ${styles[`pos${pos}`]} ${row.username === user?.username ? styles.podiumMe : ''}`}>
                 <div className={styles.podiumMedal}>{MEDALS[row.rank - 1]}</div>
-                <div className={styles.podiumAvatar}>
-                  {row.username[0].toUpperCase()}
-                </div>
+                <div className={styles.podiumAvatar}>{row.username[0].toUpperCase()}</div>
                 <div className={styles.podiumName}>{row.username}</div>
                 <div className={styles.podiumCoins}>{row.coins.toLocaleString('ru-RU')} ◈</div>
                 <div className={styles.podiumWinrate}>{row.win_rate}% win</div>
@@ -164,7 +180,7 @@ function LeaderboardCol({ user }) {
         </div>
       )}
 
-      {/* Таблица */}
+      {/* Таблица топ 10 */}
       <div className={styles.tableWrap}>
         <table className={styles.table}>
           <thead>
@@ -212,8 +228,47 @@ function LeaderboardCol({ user }) {
             {rows.length === 0 && (
               <tr><td colSpan={5} className={styles.empty}>Пока никого нет</td></tr>
             )}
+
+            {/* Разделитель + строка текущего пользователя если не в топ 10 */}
+            {!userInTop10 && myRank && (
+              <>
+                <tr className={styles.separatorRow}>
+                  <td colSpan={5} className={styles.separatorCell}>
+                    <span className={styles.separatorDots}>• • •</span>
+                  </td>
+                </tr>
+                <tr className={`${styles.tr} ${styles.myRow}`}>
+                  <td className={styles.rankCell}>
+                    <span className={styles.rankNum}>{myRank.rank}</span>
+                  </td>
+                  <td className={styles.nameCell}>
+                    <div className={styles.nameInner}>
+                      <span className={styles.nameText}>{myRank.username}</span>
+                      <span className={styles.youTag}>Вы</span>
+                    </div>
+                  </td>
+                  <td className={styles.td}>
+                    <span className={styles.mono}>{myRank.coins.toLocaleString('ru-RU')}</span>
+                    <span className={styles.coinIcon}> ◈</span>
+                  </td>
+                  <td className={styles.td}>{myRank.total_bets}</td>
+                  <td className={styles.td}>
+                    <span className={`${styles.wr} ${myRank.win_rate >= 50 ? styles.green : styles.red}`}>
+                      {myRank.win_rate}%
+                    </span>
+                  </td>
+                </tr>
+              </>
+            )}
           </tbody>
         </table>
+
+        {/* Подпись "Ваше место: #N из M" */}
+        {!userInTop10 && myRank && (
+          <div className={styles.myRankBanner}>
+            Ваше место: <strong>#{myRank.rank}</strong> из <strong>{myRank.total}</strong>
+          </div>
+        )}
       </div>
     </div>
   );

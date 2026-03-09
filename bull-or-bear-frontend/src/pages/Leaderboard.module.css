@@ -21,10 +21,21 @@
   gap: 16px;
 }
 
+.colTitleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
 .colTitle {
   font-size: 18px;
   font-weight: 700;
   color: var(--text);
+}
+
+.updateHint {
+  font-size: 11px;
+  color: var(--text-muted);
 }
 
 /* ── Loading / Empty ── */
@@ -149,7 +160,42 @@
 .tr:hover { background: rgba(255,255,255,0.02); }
 
 .topRow { background: rgba(245,158,11,0.03); }
-.myRow  { background: var(--accent-dim) !important; }
+.myRow  { background: var(--green-dim) !important; }
+
+/* ── Separator row (dots between top10 and user) ── */
+.separatorRow { border-bottom: none; }
+
+.separatorCell {
+  padding: 6px 0;
+  text-align: center;
+}
+
+.separatorDots {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 4px;
+}
+
+/* ── My rank banner ── */
+.myRankBanner {
+  padding: 10px 14px;
+  background: var(--green-dim);
+  border-top: 1px solid rgba(34, 197, 94, 0.2);
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.myRankBanner strong {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ── Podium: highlight current user ── */
+.podiumMe {
+  border-color: var(--green) !important;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+}
 
 .td {
   padding: 10px 14px;
@@ -252,9 +298,9 @@
 }
 
 .filterActive {
-  background: var(--accent-dim) !important;
-  border-color: rgba(129,140,248,0.3) !important;
-  color: var(--accent) !important;
+  background: var(--green-dim) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+  color: var(--green) !important;
 }
 
 /* ── History List ── */
