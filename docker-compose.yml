@@ -1,0 +1,82 @@
+services:
+
+  # ── PostgreSQL ──────────────────────────────────────────
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB:       bull_or_bear
+      POSTGRES_USER:     bull_user
+      POSTGRES_PASSWORD: bull_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - bull_net
+
+  # ── Redis ───────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks:
+      - bull_net
+
+  # ── Django (ASGI / Daphne) ──────────────────────────────
+  django:
+    build:
+      context: bull-or-bear-backend
+    command: daphne -b 0.0.0.0 -p 8000 config.asgi:application
+    env_file: .env.docker
+    ports:
+      - "8000:8000"
+    volumes:
+      - static_volume:/app/staticfiles
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    networks:
+      - bull_net
+
+  # ── Celery Worker ───────────────────────────────────────
+  celery:
+    build:
+      context: bull-or-bear-backend
+    command: celery -A config worker -l info
+    env_file: .env.docker
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    networks:
+      - bull_net
+
+  # ── Frontend (React → nginx static) ────────────────────
+  frontend:
+    build:
+      context: bull-or-bear-frontend
+    restart: unless-stopped
+    networks:
+      - bull_net
+
+  # ── Nginx (reverse proxy) ───────────────────────────────
+  nginx:
+    build:
+      context: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/vol/static
+    depends_on:
+      - django
+      - frontend
+    restart: unless-stopped
+    networks:
+      - bull_net
+
+volumes:
+  postgres_data:
+  static_volume:
+
+networks:
+  bull_net:
+    name: bull_or_bear_network

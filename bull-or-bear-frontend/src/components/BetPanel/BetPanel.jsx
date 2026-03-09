@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import api from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
+import { extractApiError, logError } from '../../utils/logger';
 import styles from './BetPanel.module.css';
 
 const DURATIONS = [
@@ -36,8 +37,10 @@ export default function BetPanel({ symbol, currentPrice, onBetPlaced }) {
       setAmount('');
       refreshUser();
       if (onBetPlaced) onBetPlaced();
+      // Обновляем баланс через duration + 3с — к тому моменту ставка точно разрешена
+      setTimeout(() => refreshUser(), (duration + 3) * 1000);
     } catch (e) {
-      setError(e.response?.data?.error || 'Ошибка создания ставки');
+      setError(logError('BetPanel', e));
     } finally {
       setLoading(false);
     }

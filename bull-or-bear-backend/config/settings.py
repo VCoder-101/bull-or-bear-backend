@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-me')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -103,7 +103,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # DRF
@@ -127,30 +128,38 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://localhost:5173',
 ]
 
-# Redis — проверяем доступность один раз при старте
+# Redis
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
-_REDIS_UP = _redis_available()
 
-# Celery
-# Если Redis недоступен — используем memory://, задачи не персистируются,
-# но приложение стартует без ошибок и спама в логах
-CELERY_BROKER_URL = REDIS_URL if _REDIS_UP else 'memory://'
-CELERY_RESULT_BACKEND = REDIS_URL if _REDIS_UP else 'cache+memory://'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+# Celery + Channels: в продакшне используем Redis, в разработке — auto-detect
+if not DEBUG:
+    # Production (Docker): Redis гарантированно доступен
+    CELERY_BROKER_URL    = REDIS_URL
+    CELERY_RESULT_BACKEND = REDIS_URL
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG':  {'hosts': [REDIS_URL]},
+        },
+    }
+else:
+    # Development: Redis опционален, fallback на memory://
+    _REDIS_UP = _redis_available()
+    CELERY_BROKER_URL    = REDIS_URL if _REDIS_UP else 'memory://'
+    CELERY_RESULT_BACKEND = REDIS_URL if _REDIS_UP else 'cache+memory://'
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        },
+    }
+
+CELERY_ACCEPT_CONTENT    = ['json']
+CELERY_TASK_SERIALIZER   = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
-
-# Django Channels
-# InMemoryChannelLayer — не требует Redis, работает в одном процессе
-# Для продакшна заменить на channels_redis.core.RedisChannelLayer
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-    },
-}
+CELERY_TIMEZONE          = TIME_ZONE
 
 # Binance
 BINANCE_BASE_URL = os.getenv('BINANCE_BASE_URL', 'https://api.binance.com')

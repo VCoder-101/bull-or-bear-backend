@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import api from '../api/client';
 import styles from './auth.module.css';
 
 const FLOAT_ICONS = [
@@ -15,14 +16,16 @@ const FLOAT_ICONS = [
 ];
 
 const Login = () => {
-  const navigate  = useNavigate();
   const location  = useLocation();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const [form, setForm]     = useState({ username: '', password: '' });
   const [error, setError]   = useState(null);
   const [loading, setLoading] = useState(false);
 
   const verified = location.state?.verified;
+
+  // Если уже залогинен — редиректим
+  if (user) return <Navigate to="/home" replace />;
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -31,17 +34,12 @@ const Login = () => {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/v1/auth/login/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.detail || 'Ошибка входа'); return; }
+      const { data } = await api.post('/auth/login/', form);
       await login(data);
-      navigate('/home');
-    } catch {
-      setError('Ошибка сети. Запущен ли бэкенд?');
+      // navigate не нужен — редирект произойдёт автоматически через if (user) выше
+    } catch (err) {
+      const d = err.response?.data;
+      setError(d?.detail || 'Ошибка входа');
     } finally {
       setLoading(false);
     }

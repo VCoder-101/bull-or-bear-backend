@@ -23,6 +23,7 @@ PLAN.md
 run_dev.py
 test_all.py
 COMMIT_MSG.md
+COMMIT_MESSAGE.md
 
 # OS
 .DS_Store

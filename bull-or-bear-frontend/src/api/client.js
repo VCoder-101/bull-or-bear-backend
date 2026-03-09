@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { logError } from '../utils/logger';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: '/api/v1',
 });
 
 api.interceptors.request.use((config) => {
@@ -15,16 +16,22 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    logError('axios', error);
     const original = error.config;
 
-    if (error.response?.status === 401 && !original._retry) {
+    // Не перехватываем 401 от эндпоинтов аутентификации
+    const isAuthEndpoint = original.url?.includes('/auth/login/') ||
+                           original.url?.includes('/auth/register/') ||
+                           original.url?.includes('/auth/verify/');
+
+    if (error.response?.status === 401 && !original._retry && !isAuthEndpoint) {
       original._retry = true;
       const refresh = localStorage.getItem('refresh_token');
 
       if (refresh) {
         try {
           const { data } = await axios.post(
-            'http://localhost:8000/api/v1/auth/token/refresh/',
+            '/api/v1/auth/token/refresh/',
             { refresh }
           );
           localStorage.setItem('access_token', data.access);

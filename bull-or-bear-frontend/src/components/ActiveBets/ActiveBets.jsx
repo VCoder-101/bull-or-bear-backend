@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import api from '../../api/client';
+import { useAuth } from '../../context/AuthContext';
 import styles from './ActiveBets.module.css';
 
 function Countdown({ createdAtTs, durationSec, onExpired }) {
@@ -33,7 +34,9 @@ function Countdown({ createdAtTs, durationSec, onExpired }) {
 }
 
 export default function ActiveBets({ refreshTrigger, onBetsResolved }) {
+  const { refreshUser } = useAuth();
   const [bets, setBets] = useState([]);
+  const prevCountRef = useRef(0);
 
   async function load() {
     try {
@@ -44,15 +47,25 @@ export default function ActiveBets({ refreshTrigger, onBetsResolved }) {
 
   useEffect(() => { load(); }, [refreshTrigger]);
 
+  // Поллинг каждые 5 секунд
   useEffect(() => {
-    const id = setInterval(load, 15000);
+    const id = setInterval(load, 5000);
     return () => clearInterval(id);
   }, []);
 
+  // Когда количество активных ставок уменьшилось — ставка разрешена, обновляем баланс
+  useEffect(() => {
+    if (prevCountRef.current > 0 && bets.length < prevCountRef.current) {
+      refreshUser();
+      onBetsResolved?.();
+    }
+    prevCountRef.current = bets.length;
+  }, [bets.length]); // eslint-disable-line
+
   async function handleExpired() {
+    // Вызываем fallback-разрешение (на случай если Celery не успел)
     try { await api.post('/bets/resolve-expired/'); } catch { /* ignore */ }
-    load();
-    onBetsResolved?.();
+    load(); // следующий load обнаружит изменение и вызовет refreshUser через useEffect выше
   }
 
   if (!bets.length) return null;

@@ -31,4 +31,4 @@ class CreateBetSerializer(serializers.Serializer):
     symbol = serializers.CharField(max_length=20)
     direction = serializers.ChoiceField(choices=['bull', 'bear'])
     amount = serializers.IntegerField(min_value=10)
-    duration = serializers.ChoiceField(choices=[5, 15, 60])
+    duration = serializers.ChoiceField(choices=[d for d, _ in Bet.DURATION_CHOICES])
