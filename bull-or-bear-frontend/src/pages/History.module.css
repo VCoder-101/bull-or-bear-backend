@@ -71,7 +71,7 @@
 
 .active {
   background: var(--accent-dim) !important;
-  border-color: rgba(129, 140, 248, 0.3) !important;
+  border-color: rgba(124, 58, 237, 0.3) !important;
   color: var(--accent) !important;
 }
 

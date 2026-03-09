@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import api from '../api/client';
+import Ticker from '../components/Ticker/Ticker';
 import styles from './auth.module.css';
 
 const FLOAT_ICONS = [
@@ -37,6 +38,8 @@ const Verify = () => {
 
   return (
     <div className={styles.page}>
+      <div className={styles.tickerRow}><Ticker /></div>
+
       {FLOAT_ICONS.map((ic, i) => (
         <span
           key={i}
@@ -48,7 +51,7 @@ const Verify = () => {
       ))}
 
       <div className={styles.card}>
-        <div className={styles.logo}><span className={styles.logoIcon}>◈</span></div>
+        <div className={styles.logo}><span className={styles.logoIcon}>🔷</span></div>
         <h1 className={styles.title}>Подтверждение</h1>
         <p className={styles.subtitle}>Введите код из письма</p>
 

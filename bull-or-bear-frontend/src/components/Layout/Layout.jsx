@@ -1,5 +1,6 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import Ticker from '../Ticker/Ticker';
 import styles from './Layout.module.css';
 
 const NAV = [
@@ -10,15 +11,16 @@ const NAV = [
 ];
 
 const Layout = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <div className={styles.wrapper}>
+      <Ticker />
+
       <header className={styles.header}>
         <NavLink to="/home" className={styles.logo}>
-          <span className={styles.logoIcon}>◈</span>
-          <span className={styles.logoText}>BullOrBear</span>
+          <span className={styles.logoEmoji}>🔷</span>
+          <span className={styles.logoText}>kurs-kripto.ru</span>
         </NavLink>
 
         <nav className={styles.nav}>

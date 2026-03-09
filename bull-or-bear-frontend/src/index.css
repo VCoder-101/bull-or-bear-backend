@@ -1,44 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg:          #1a1b2e;
-  --bg-card:     #22233a;
-  --bg-elevated: #2a2b47;
-  --bg-input:    #1e1f35;
+  /* ── Backgrounds ── */
+  --bg:          #0d1117;
+  --bg-card:     #0f1526;
+  --bg-elevated: #141b2d;
+  --bg-input:    #0d1117;
 
-  --border:       rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(255, 255, 255, 0.14);
-  --border-focus: rgba(129, 140, 248, 0.5);
+  /* ── Borders ── */
+  --border:       rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --border-focus: rgba(34, 197, 94, 0.5);
 
-  --text:           #e2e8f0;
+  /* ── Text ── */
+  --text:           #f1f5f9;
   --text-secondary: #94a3b8;
-  --text-muted:     #6b7280;
+  --text-muted:     #64748b;
 
-  --green:     #22c55e;
-  --green-dim: rgba(34, 197, 94, 0.15);
-  --green-glow:rgba(34, 197, 94, 0.25);
+  /* ── Green (primary accent) ── */
+  --green:      #22c55e;
+  --green-dim:  rgba(34, 197, 94, 0.12);
+  --green-glow: rgba(34, 197, 94, 0.28);
 
+  /* ── Red ── */
   --red:     #ef4444;
-  --red-dim: rgba(239, 68, 68, 0.15);
+  --red-dim: rgba(239, 68, 68, 0.12);
   --red-glow:rgba(239, 68, 68, 0.25);
 
-  --accent:     #818cf8;
-  --accent-dim: rgba(129, 140, 248, 0.12);
+  /* ── Accent (purple/violet for secondary highlights) ── */
+  --accent:     #7c3aed;
+  --accent-dim: rgba(124, 58, 237, 0.12);
 
+  /* ── Cyan (gradient text pair with green) ── */
+  --cyan: #06b6d4;
+
+  /* ── Gold ── */
   --gold:     #f59e0b;
   --gold-dim: rgba(245, 158, 11, 0.15);
 
+  /* ── Radius ── */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
 
-  --shadow:    0 4px 24px rgba(0, 0, 0, 0.5);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  /* ── Shadows ── */
+  --shadow:    0 4px 24px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-green: 0 0 24px rgba(34, 197, 94, 0.25);
 
+  /* ── Typography ── */
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --header-h: 60px;
+  /* ── Layout ── */
+  --header-h:  60px;
+  --ticker-h:  36px;
 }
 
 *, *::before, *::after {
@@ -51,6 +67,11 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
+  /* Subtle gradient over the entire page */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(34, 197, 94, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
   color: var(--text);
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -62,14 +83,22 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 input, select, textarea { font-family: inherit; }
 
-/* Scrollbar */
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #3a3b5e; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #4f5085; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
 
-/* Utility classes */
-.mono { font-family: var(--font-mono); }
+/* ── Utility classes ── */
+.mono  { font-family: var(--font-mono); }
 .green { color: var(--green); }
 .red   { color: var(--red); }
 .muted { color: var(--text-muted); }
+
+/* ── Gradient text utility ── */
+.gradientText {
+  background: linear-gradient(135deg, var(--green) 0%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

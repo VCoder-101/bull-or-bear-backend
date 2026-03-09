@@ -3,7 +3,7 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
-  background: #22233a;
+  background: var(--bg-card);
 }
 
 .chart {

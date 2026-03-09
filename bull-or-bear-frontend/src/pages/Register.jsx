@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/client';
+import Ticker from '../components/Ticker/Ticker';
 import styles from './auth.module.css';
 
 const FLOAT_ICONS = [
@@ -39,6 +40,8 @@ const Register = () => {
 
   return (
     <div className={styles.page}>
+      <div className={styles.tickerRow}><Ticker /></div>
+
       {FLOAT_ICONS.map((ic, i) => (
         <span
           key={i}
@@ -50,8 +53,8 @@ const Register = () => {
       ))}
 
       <div className={styles.card}>
-        <div className={styles.logo}><span className={styles.logoIcon}>◈</span></div>
-        <h1 className={styles.title}>BullOrBear</h1>
+        <div className={styles.logo}><span className={styles.logoIcon}>🔷</span></div>
+        <h1 className={styles.title}>kurs-kripto.ru</h1>
         <p className={styles.subtitle}>Создайте аккаунт</p>
 
         <form className={styles.form} onSubmit={handleSubmit}>

@@ -4,6 +4,7 @@ import { useAuth } from './context/AuthContext';
 import ActiveBetsPage from './pages/ActiveBetsPage';
 import Bonuses from './pages/Bonuses';
 import Home from './pages/Home';
+import Landing from './pages/Landing';
 import Leaderboard from './pages/Leaderboard';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -14,11 +15,12 @@ import Verify from './pages/Verify';
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return null;
-  return user ? children : <Navigate to="/login" replace />;
+  return user ? children : <Navigate to="/" replace />;
 };
 
 const App = () => (
   <Routes>
+    <Route path="/"         element={<Landing />} />
     <Route path="/login"    element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path="/verify"   element={<Verify />} />
@@ -34,7 +36,7 @@ const App = () => (
       <Route path="/profile"       element={<PrivateRoute><Profile /></PrivateRoute>} />
     </Route>
 
-    <Route path="*" element={<Navigate to="/home" replace />} />
+    <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>
 );
 

@@ -65,7 +65,7 @@
 
 .dayToday {
   background: var(--accent-dim);
-  border-color: rgba(129, 140, 248, 0.4) !important;
+  border-color: rgba(124, 58, 237, 0.4) !important;
   box-shadow: 0 0 12px var(--accent-dim);
 }
 

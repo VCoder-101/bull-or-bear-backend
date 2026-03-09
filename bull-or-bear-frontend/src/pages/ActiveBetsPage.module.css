@@ -25,7 +25,7 @@
 .summaryTag {
   padding: 6px 14px;
   background: var(--accent-dim);
-  border: 1px solid rgba(129, 140, 248, 0.25);
+  border: 1px solid rgba(124, 58, 237, 0.25);
   border-radius: var(--radius-md);
   font-size: 13px;
   font-weight: 500;

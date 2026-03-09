@@ -9,44 +9,40 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  height: 64px;
+  height: 60px;
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 0 28px;
-  background: rgba(26, 27, 46, 0.94);
-  backdrop-filter: blur(14px);
+  padding: 0 24px;
+  background: rgba(13, 17, 23, 0.92);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
 
-/* Logo */
+/* ── Logo ── */
 .logo {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
-.logoIcon {
-  font-size: 20px;
-  color: var(--accent);
+.logoEmoji {
+  font-size: 18px;
 }
 
 .logoText {
-  font-size: 16px;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
   letter-spacing: -0.3px;
 }
 
-/* Nav */
+/* ── Nav ── */
 .nav {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   flex: 1;
   justify-content: center;
 }
@@ -54,10 +50,10 @@
 .navItem {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 16px;
+  gap: 6px;
+  padding: 8px 14px;
   border-radius: var(--radius-md);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-muted);
   transition: color 0.2s, background 0.2s;
@@ -66,46 +62,40 @@
 
 .navItem:hover {
   color: var(--text-secondary);
-  background: var(--bg-elevated);
+  background: rgba(255,255,255,0.05);
 }
 
 .navActive {
-  color: var(--accent) !important;
-  background: var(--accent-dim) !important;
+  color: var(--green) !important;
+  background: var(--green-dim) !important;
 }
 
-.navIcon {
-  font-size: 15px;
-  line-height: 1;
-}
+.navIcon  { font-size: 14px; line-height: 1; }
+.navLabel { font-size: 13px; }
 
-.navLabel {
-  font-size: 14px;
-}
-
-/* Right side */
+/* ── Right side ── */
 .right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
 .balance {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 14px;
-  background: var(--bg-elevated);
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.04);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 }
 
-.balanceIcon { color: var(--gold); font-size: 14px; }
+.balanceIcon { color: var(--green); font-size: 13px; }
 
 .balanceVal {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text);
 }
@@ -116,13 +106,13 @@
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: var(--accent-dim);
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  font-size: 14px;
+  background: var(--green-dim);
+  border: 2px solid var(--green);
+  color: var(--green);
+  font-size: 13px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -132,14 +122,22 @@
 }
 
 .avatar:hover {
-  box-shadow: 0 0 0 3px var(--accent-dim);
+  box-shadow: 0 0 0 3px var(--green-dim);
 }
 
-/* Main */
+/* ── Main ── */
 .main {
   flex: 1;
-  padding: 28px 28px;
+  padding: 28px;
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .header { padding: 0 16px; gap: 12px; }
+  .navLabel { display: none; }
+  .navItem { padding: 8px 10px; }
+  .main { padding: 16px; }
 }

@@ -1,20 +1,33 @@
-/* ── Страница авторизации ── */
+/* ── Auth page wrapper ── */
 .page {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1040 50%, #0d1830 100%);
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -5%, rgba(124, 58, 237, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 90%, rgba(34, 197, 94, 0.06) 0%, transparent 50%);
   padding: 24px;
   position: relative;
   overflow: hidden;
 }
 
-/* ── Плавающие иконки криптовалют на фоне ── */
+/* ── Ticker row at very top ── */
+.tickerRow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+}
+
+/* ── Floating crypto icons ── */
 .floatIcon {
   position: absolute;
   font-weight: 800;
-  color: rgba(129, 140, 248, 0.08);
+  color: rgba(124, 58, 237, 0.07);
   pointer-events: none;
   user-select: none;
   animation: floatAnim var(--dur, 14s) ease-in-out infinite;
@@ -28,18 +41,25 @@
   100% { transform: translateY(0px)   rotate(0deg)   scale(1); }
 }
 
-/* ── Карточка формы ── */
+/* ── Card ── */
 .card {
   position: relative;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.97);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 40px 38px;
+  padding: 40px 36px;
   width: 100%;
   max-width: 420px;
   box-shadow:
-    0 24px 64px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(129, 140, 248, 0.2);
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255,255,255,0.04);
+  animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Logo ── */
@@ -49,21 +69,21 @@
 }
 
 .logoIcon {
-  font-size: 34px;
-  color: #818cf8;
+  font-size: 32px;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
   text-align: center;
-  color: #1e1b4b;
+  color: var(--text);
   margin-bottom: 6px;
+  letter-spacing: -0.3px;
 }
 
 .subtitle {
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-muted);
   text-align: center;
   margin-bottom: 28px;
 }
@@ -82,86 +102,90 @@
 }
 
 .label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .input {
-  background: #f9fafb;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 12px 14px;
-  color: #111827;
+  color: var(--text);
   font-size: 14px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   font-family: inherit;
 }
 
 .input:focus {
-  border-color: #818cf8;
-  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
-  background: #fff;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-dim);
+  background: rgba(255,255,255,0.06);
 }
 
-.input::placeholder { color: #9ca3af; }
+.input::placeholder { color: var(--text-muted); }
 
 /* ── Messages ── */
 .error {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: var(--red-dim);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: 8px;
   padding: 10px 14px;
-  color: #dc2626;
+  color: #fca5a5;
   font-size: 13px;
 }
 
 .hint {
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
+  background: var(--green-dim);
+  border: 1px solid rgba(34, 197, 94, 0.3);
   border-radius: 8px;
   padding: 10px 14px;
-  color: #1d4ed8;
+  color: #86efac;
   font-size: 13px;
 }
 
 /* ── Submit button ── */
 .submit {
-  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-  color: #fff;
+  background: var(--green);
+  color: #0d1117;
   border: none;
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: var(--radius-md);
+  padding: 13px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s, box-shadow 0.2s;
+  transition: opacity 0.2s, box-shadow 0.2s, transform 0.15s;
   margin-top: 4px;
-  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.4);
+  box-shadow: var(--shadow-green);
   font-family: inherit;
 }
 
 .submit:hover:not(:disabled) {
   opacity: 0.9;
-  box-shadow: 0 6px 24px rgba(129, 140, 248, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(34, 197, 94, 0.4);
 }
 
 .submit:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
+  transform: none;
 }
 
-/* ── Footer ── */
+/* ── Footer link ── */
 .footer {
   text-align: center;
   margin-top: 20px;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .footer a {
-  color: #818cf8;
+  color: var(--green);
   text-decoration: none;
   font-weight: 600;
 }

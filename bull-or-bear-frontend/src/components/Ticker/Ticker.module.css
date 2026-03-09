@@ -1,0 +1,36 @@
+.bar {
+  background: #060a12;
+  border-bottom: 1px solid var(--border);
+  height: var(--ticker-h, 36px);
+  overflow: hidden;
+  position: relative;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: scroll 45s linear infinite;
+  height: 100%;
+}
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 26px;
+  font-size: 12px;
+  font-weight: 500;
+  border-right: 1px solid var(--border);
+  height: 100%;
+}
+
+.sym   { color: var(--text-muted); font-weight: 600; letter-spacing: 0.3px; }
+.price { color: var(--text); font-family: var(--font-mono); }
+.up    { color: var(--green); }
+.down  { color: var(--red); }
